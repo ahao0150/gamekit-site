@@ -1,0 +1,25 @@
+{
+  "version": 1,
+  "atlases": {
+    "atlas-0.png": {
+      "w": 2048,
+      "h": 84
+    }
+  },
+  "frames": {
+    "ui/banner-slot": {
+      "atlas": "atlas-0.png",
+      "x": 2,
+      "y": 2,
+      "w": 320,
+      "h": 80
+    },
+    "ui/btn": {
+      "atlas": "atlas-0.png",
+      "x": 324,
+      "y": 2,
+      "w": 64,
+      "h": 64
+    }
+  }
+}

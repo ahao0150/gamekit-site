@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>在线试玩 — gamekit</title>
+<meta name="description" content="直接在线试玩 gamekit 的三个示例：platformer（2D 物理）、ui-demo（.ui 界面语言）、pindou-workshop（完整小游戏）。">
+<link rel="stylesheet" href="assets/style.css?v=3">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="logo-mark"></span>gamekit</a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="play.html">在线试玩</a>
+      <a href="guide.html">上手指南</a>
+      <a href="docs.html">文档</a>
+      <a href="https://github.com/ahao0150/gamekit">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section style="border-top:0;padding-top:64px;padding-bottom:32px">
+    <span class="eyebrow">Playground</span>
+    <h1 style="font-size:clamp(30px,5vw,46px)">在线试玩</h1>
+    <p class="lede">这三个都是仓库里的真实示例，跑的就是 <code>pnpm build</code> 出来的同一份产物。</p>
+  </section>
+
+  <section style="padding-top:0">
+    <div class="play-layout">
+      <div class="play-list">
+        <button class="play-item active" data-game="platformer" data-url="play/platformer/">
+          <span class="play-name">platformer</span>
+          <span class="play-desc">2D 物理：static 地面 + dynamic 玩家 + setVelocity 跳跃</span>
+        </button>
+        <button class="play-item" data-game="ui-demo" data-url="play/ui-demo/">
+          <span class="play-name">ui-demo</span>
+          <span class="play-desc">.ui 界面语言：region 切带、组件注册表、命中测试、浮层</span>
+        </button>
+        <button class="play-item" data-game="pindou-workshop" data-url="play/pindou-workshop/">
+          <span class="play-name">pindou-workshop</span>
+          <span class="play-desc">完整小游戏：12 关 + IAA 变现 + 存档 + 图集美术</span>
+        </button>
+      </div>
+
+      <div class="play-stage">
+        <div class="device">
+          <div class="device-bar">
+            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+            <span class="device-title" id="deviceTitle">platformer</span>
+          </div>
+          <iframe id="frame" title="游戏预览" src="about:blank" allow="autoplay"></iframe>
+        </div>
+        <p class="play-hint" id="stageHint">画框固定 390×844（游戏的 design 尺寸），宽屏下预览不会把画面拉变形。</p>
+      </div>
+    </div>
+
+    <noscript>
+      <div class="note">这段预览需要 JS。也可以直接打开：<a href="play/platformer/">platformer</a> · <a href="play/ui-demo/">ui-demo</a> · <a href="play/pindou-workshop/">pindou-workshop</a></div>
+    </noscript>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>说明</h2>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>手机上直接全屏</h3>
+        <p>窄屏下不套画框，点一下卡片就是整屏运行，配合游戏自己的 <code>viewport-fit=cover</code> 适配刘海屏。</p>
+      </div>
+      <div class="card">
+        <h3>宽屏用手机画框</h3>
+        <p>游戏按 390×844 设计，直接铺满桌面浏览器会被拉伸。这里放进固定比例的 iframe，看到的就是真机上的构图。</p>
+      </div>
+      <div class="card">
+        <h3>产物与仓库同源</h3>
+        <p>这些文件就是 <code>games/&lt;name&gt;/build/web/</code> 的内容，<code>mg build --all</code> 出什么这里就是什么。</p>
+      </div>
+    </div>
+    <div class="note">
+      <code>games/bench</code> 是 Canvas 2D 性能基准，没有可玩内容，也没配 <code>build</code> 脚本 —— 在本地 <code>pnpm bench</code> 跑。
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>gamekit · MIT License</span>
+    <span><a href="index.html">首页</a> · <a href="guide.html">上手指南</a> · <a href="docs.html">文档</a></span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+<script>
+  (() => {
+    const items = Array.from(document.querySelectorAll('.play-item'));
+    const frame = document.getElementById('frame');
+    const title = document.getElementById('deviceTitle');
+    const narrow = window.matchMedia('(max-width: 900px)');
+
+    const load = (item) => {
+      items.forEach((i) => i.classList.remove('active'));
+      item.classList.add('active');
+      frame.src = item.dataset.url;
+      title.textContent = item.dataset.game;
+    };
+
+    items.forEach((item) => {
+      item.addEventListener('click', () => {
+        if (narrow.matches) {
+          location.href = item.dataset.url;
+          return;
+        }
+        load(item);
+      });
+    });
+
+    // 宽屏才预载第一个示例；窄屏不请求 iframe（点了直接跳转）。
+    if (!narrow.matches) {
+      const first = items[0];
+      if (first) load(first);
+    }
+  })();
+</script>
+</body>
+</html>

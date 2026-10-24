@@ -1,0 +1,109 @@
+{
+  "version": 1,
+  "atlases": {
+    "atlas-0.png": {
+      "w": 2048,
+      "h": 372
+    }
+  },
+  "frames": {
+    "ui/panel": {
+      "atlas": "atlas-0.png",
+      "x": 2,
+      "y": 2,
+      "w": 240,
+      "h": 240
+    },
+    "ui/hud-bar": {
+      "atlas": "atlas-0.png",
+      "x": 244,
+      "y": 2,
+      "w": 780,
+      "h": 152
+    },
+    "ui/btn-primary_disabled": {
+      "atlas": "atlas-0.png",
+      "x": 1026,
+      "y": 2,
+      "w": 336,
+      "h": 126
+    },
+    "ui/btn-primary_normal": {
+      "atlas": "atlas-0.png",
+      "x": 1364,
+      "y": 2,
+      "w": 336,
+      "h": 126
+    },
+    "ui/btn-secondary_disabled": {
+      "atlas": "atlas-0.png",
+      "x": 1702,
+      "y": 2,
+      "w": 336,
+      "h": 126
+    },
+    "ui/btn-secondary_normal": {
+      "atlas": "atlas-0.png",
+      "x": 2,
+      "y": 244,
+      "w": 336,
+      "h": 126
+    },
+    "icons/clock": {
+      "atlas": "atlas-0.png",
+      "x": 340,
+      "y": 244,
+      "w": 96,
+      "h": 96
+    },
+    "icons/thermometer": {
+      "atlas": "atlas-0.png",
+      "x": 438,
+      "y": 244,
+      "w": 96,
+      "h": 96
+    },
+    "beads/blue": {
+      "atlas": "atlas-0.png",
+      "x": 536,
+      "y": 244,
+      "w": 64,
+      "h": 64
+    },
+    "beads/green": {
+      "atlas": "atlas-0.png",
+      "x": 602,
+      "y": 244,
+      "w": 64,
+      "h": 64
+    },
+    "beads/orange": {
+      "atlas": "atlas-0.png",
+      "x": 668,
+      "y": 244,
+      "w": 64,
+      "h": 64
+    },
+    "beads/purple": {
+      "atlas": "atlas-0.png",
+      "x": 734,
+      "y": 244,
+      "w": 64,
+      "h": 64
+    },
+    "beads/red": {
+      "atlas": "atlas-0.png",
+      "x": 800,
+      "y": 244,
+      "w": 64,
+      "h": 64
+    },
+    "beads/yellow": {
+      "atlas": "atlas-0.png",
+      "x": 866,
+      "y": 244,
+      "w": 64,
+      "h": 64
+    }
+  }
+}
