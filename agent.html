@@ -59,18 +59,41 @@
       它的 description 里写明了边界——改引擎（<code>packages/**</code>）不属于它们，要先读仓库 <code>AGENTS.md</code>。
     </div>
 
-    <h3 style="margin-top:32px;font-size:17px">装到自己的环境</h3>
-    <div class="code-block">
-      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
-      <pre><code># Skill 就是一个目录 + 一个 SKILL.md
-$DSH_HOME/skills/
-  gamekit-minigame/SKILL.md
-  ui-authoring/SKILL.md</code></pre>
-    </div>
-    <p style="color:var(--muted);font-size:14.2px;margin-top:12px">
-      放进去后 agent 的 skill catalog 会列出它；调用 <code>skill</code> 工具加载即生效。
-      换机器时把 SKILL.md 里的仓库路径改掉即可。
+    <h3 style="margin-top:32px;font-size:17px">一键装好：把这段发给 agent</h3>
+    <p style="color:var(--muted);font-size:14.2px;margin:0 0 12px">
+      不用手抄步骤。把下面整段贴给任何一个能跑命令的 agent，它会自己完成 clone、安装、构建验证、
+      注册 MCP、装 skill，最后按四条验收回报。
     </p>
+    <div class="code-block">
+      <div class="code-head"><span>发给 agent 的提示词</span><button class="copy">复制</button></div>
+      <pre><code>目标：把 gamekit 装到这个环境并接好工具，装完能直接开新游戏。
+
+仓库 https://github.com/ahao0150/gamekit ，装在 $HOME/gamekit
+（已存在就复用，先看 git status，别覆盖未提交改动）。
+
+1  node -v &amp;&amp; pnpm -v          确认 Node ≥ 22
+2  git clone https://github.com/ahao0150/gamekit.git $HOME/gamekit
+   （已存在则 cd $HOME/gamekit &amp;&amp; git pull --ff-only）
+3  cd $HOME/gamekit &amp;&amp; pnpm install
+4  pnpm doctor                 必须全绿；有红项先修，不许跳过
+5  cd games/platformer &amp;&amp; pnpm build
+   → build/web build/wx build/tt 三个目录都在，web 约 251 KB
+6  注册 MCP（stdio），加完重连：
+   {"mcpServers":{"mg-debug":{"command":"node",
+     "args":["$HOME/gamekit/packages/debug-mcp/bin/mg-debug-mcp.mjs"]}}}
+   调一次 ui.grammar，能返回 .ui 语法即接通
+7  装 skill：把 $HOME/gamekit/skills/gamekit-minigame/SKILL.md
+   复制到你环境的 skills 目录，文件里的仓库根路径改成本机实际路径；
+   加载后应能读到「mg create 流程 + 六个踩坑判据」
+8  回报四行：仓库路径 / doctor 结果 / 三端产物在不在 / MCP 与 skill 是否可用
+
+失败就贴报错原文再修，不要跳过第 4 步。</code></pre>
+    </div>
+    <div class="note">
+      <strong>为什么是提示词而不是安装脚本：</strong>每个 agent 环境的 skills 目录、MCP 配置位置都不一样，
+      脚本写死路径必然在别的环境里失败；提示词让 agent 用自己的方式落地，最后按四条自检。
+      仓库里的 <code>skills/gamekit-minigame/SKILL.md</code> 随 clone 一起下来，不需要另外分发。
+    </div>
   </section>
 
   <section>
