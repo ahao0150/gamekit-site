@@ -248,9 +248,9 @@ footer a:hover { color: var(--accent); }
 }
 
 @media (max-width: 560px) {
-  /* 5 个导航项 + logo 在 390 宽放不下，收紧间距，避免把页面撑出横向滚动 */
-  .nav-inner { gap: 10px; padding: 0 16px; }
-  .nav-links { gap: 10px; font-size: 13px; }
-  .logo { font-size: 15px; }
+  /* 6 个导航项 + logo 在 390 宽放不下：改成两行（logo 一行、链接均分一行） */
+  .nav-inner { flex-wrap: wrap; height: auto; padding: 10px 16px; row-gap: 8px; }
+  .logo { width: 100%; font-size: 15px; }
+  .nav-links { width: 100%; margin-left: 0; justify-content: space-between; gap: 6px; font-size: 12.5px; }
   .wrap { padding: 0 16px; }
 }

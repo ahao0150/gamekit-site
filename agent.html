@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent 工具 — gamekit</title>
+<meta name="description" content="gamekit 给 AI 代理准备的两套工具：Skill（把流程与判据装进 agent 的上下文）和 MCP（把游戏内部状态暴露给 agent）。">
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="assets/style.css?v=5">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="logo-mark"></span>gamekit</a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="play.html">在线试玩</a>
+      <a href="guide.html">上手指南</a>
+      <a href="docs.html">文档</a>
+      <a href="agent.html">Agent 工具</a>
+      <a href="https://github.com/ahao0150/gamekit">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section style="border-top:0;padding-top:64px">
+    <span class="eyebrow">For Agents</span>
+    <h1 style="font-size:clamp(30px,5vw,46px)">给 Agent 的两套工具</h1>
+    <p class="lede">
+      gamekit 的读者主要是 AI。除了文档，还有两条让 AI **不用猜**的通道：
+      用 <strong>Skill</strong> 把流程和判据装进上下文，用 <strong>MCP</strong> 把游戏内部状态读出来。
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>一、Skill：把流程装进上下文</h2>
+      <p>一个 Skill 就是一个 <code>SKILL.md</code>。Agent 按 description 判断该不该加载，加载后照着做——不需要人再解释一遍「这个仓怎么用」。</p>
+    </div>
+
+    <div class="grid grid-2">
+      <div class="card">
+        <span class="tag">端到端</span>
+        <h3>gamekit-minigame</h3>
+        <p>从 <code>mg create</code> 到三端产物：七个核心文件的职责、构建与门禁命令、六条实测踩坑判据、交付前自检清单。新建游戏或接玩法时加载这个。</p>
+      </div>
+      <div class="card">
+        <span class="tag">单点聚焦</span>
+        <h3>ui-authoring</h3>
+        <p>只写 <code>.ui</code> 界面时用。含语法速查、组件 props、<code>ui.check</code> / <code>ui.preview</code> 工作流——写完在 Node 里验证，不用起浏览器。</p>
+      </div>
+    </div>
+
+    <div class="note">
+      两者互补：<strong>gamekit-minigame</strong> 管「怎么把这个游戏做出来」，<strong>ui-authoring</strong> 管「这屏界面怎么写对」。
+      它的 description 里写明了边界——改引擎（<code>packages/**</code>）不属于它们，要先读仓库 <code>AGENTS.md</code>。
+    </div>
+
+    <h3 style="margin-top:32px;font-size:17px">装到自己的环境</h3>
+    <div class="code-block">
+      <div class="code-head"><span>bash</span><button class="copy">复制</button></div>
+      <pre><code># Skill 就是一个目录 + 一个 SKILL.md
+$DSH_HOME/skills/
+  gamekit-minigame/SKILL.md
+  ui-authoring/SKILL.md</code></pre>
+    </div>
+    <p style="color:var(--muted);font-size:14.2px;margin-top:12px">
+      放进去后 agent 的 skill catalog 会列出它；调用 <code>skill</code> 工具加载即生效。
+      换机器时把 SKILL.md 里的仓库路径改掉即可。
+    </p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>二、MCP：把游戏内部读出来</h2>
+      <p><code>@mg/debug-mcp</code> 是一个 stdio MCP server。它让 agent 能查布局、看绘制树、读状态、截图、模拟点击——而不是靠猜。</p>
+    </div>
+
+    <h3 style="font-size:17px;margin-bottom:12px">离线工具（5 个，不用把游戏跑起来）</h3>
+    <table>
+      <thead><tr><th>工具</th><th>做什么</th></tr></thead>
+      <tbody>
+        <tr><td><code>ui.grammar</code></td><td>返回当前 <code>.ui</code> 语法（唯一真源，agent 不用照记忆写）</td></tr>
+        <tr><td><code>ui.pattern</code></td><td>取现成样例：<code>hud</code> / <code>list</code> / <code>modal</code> / <code>result</code></td></tr>
+        <tr><td><code>ui.check</code></td><td>语法 + 布局断言，带行号、一次报全</td></tr>
+        <tr><td><code>ui.layout</code></td><td>解出每个节点的矩形与绘制顺序</td></tr>
+        <tr><td><code>ui.preview</code></td><td>ASCII 预览：结构 / 溢出 / 尺寸，多视口对比</td></tr>
+      </tbody>
+    </table>
+    <p style="color:var(--muted);font-size:14.2px;margin-top:12px">
+      这五个在纯 Node 里跑完，<strong>不需要启动游戏、浏览器或截图</strong>。改界面的快速循环就靠它们。
+    </p>
+
+    <h3 style="font-size:17px;margin:32px 0 12px">运行时工具（10 个，连到跑着的游戏）</h3>
+    <table>
+      <thead><tr><th>工具</th><th>做什么</th></tr></thead>
+      <tbody>
+        <tr><td><code>canvas</code></td><td>画布尺寸、dpr、可见区域</td></tr>
+        <tr><td><code>tree</code></td><td>当前帧的绘制结构树（谁画在谁上面）</td></tr>
+        <tr><td><code>state</code></td><td>游戏内部状态快照</td></tr>
+        <tr><td><code>screenshot</code></td><td>真实截图（含 canvas 内容）</td></tr>
+        <tr><td><code>click</code></td><td>按坐标 / 按节点名模拟点击，走真实命中路径</td></tr>
+        <tr><td><code>snapshot</code></td><td>记一份快照（布局 + 状态）</td></tr>
+        <tr><td><code>snapshotList</code></td><td>列出已有快照</td></tr>
+        <tr><td><code>diff</code></td><td>两次快照的差异——改一处，看它到底影响了什么</td></tr>
+        <tr><td><code>checkRender</code></td><td>断言「该画的东西真的画了」</td></tr>
+        <tr><td><code>watch</code></td><td>监听运行时变化</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:17px;margin:32px 0 12px">存档桩（2 个）</h3>
+    <table>
+      <thead><tr><th>工具</th><th>做什么</th></tr></thead>
+      <tbody>
+        <tr><td><code>save_simulate_days</code></td><td>快进 N 天的存档演进（验证离线收益、成长曲线）</td></tr>
+        <tr><td><code>save_patch</code></td><td>改存档字段，构造边界场景</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:17px;margin:32px 0 12px">接进来</h3>
+    <div class="code-block">
+      <div class="code-head"><span>MCP 配置（stdio）</span><button class="copy">复制</button></div>
+      <pre><code>{
+  "mcpServers": {
+    "mg-debug": {
+      "command": "node",
+      "args": ["&lt;仓库根&gt;/packages/debug-mcp/bin/mg-debug-mcp.mjs"]
+    }
+  }
+}</code></pre>
+    </div>
+    <p style="color:var(--muted);font-size:14.2px;margin-top:12px">
+      也可以直接 <code>node packages/debug-mcp/bin/mg-debug-mcp.mjs</code> 手动起，按 MCP 协议用 stdin/stdout 对话。
+    </p>
+
+    <div class="note">
+      <strong>为什么这条通道重要：</strong>「状态全绿、画面全空」在这个仓里复现过不止一次——
+      数据断言过了，画面其实一片空白。让 agent 能 <code>screenshot</code> 再 <code>checkRender</code>，
+      它才有机会发现自己画错了，而不是拿着绿色的测试报告宣布完成。
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>两者怎么配合</h2>
+      <p>一个真实的改界面循环，agent 端到端不需要人陪。</p>
+    </div>
+    <div class="step">
+      <div class="step-num">1</div>
+      <div>
+        <h3>加载 skill，拿流程与判据</h3>
+        <p>读 <code>gamekit-minigame</code> 或 <code>ui-authoring</code>，知道该碰哪些文件、不该碰哪些。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">2</div>
+      <div>
+        <h3>用离线 MCP 工具写对</h3>
+        <p><code>ui.grammar</code> 拿语法 → <code>ui.pattern</code> 抄样例 → 写 <code>.ui</code> → <code>ui.check</code> + <code>ui.preview</code> 多视口验证。全在 Node 里，秒级反馈。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">3</div>
+      <div>
+        <h3>构建 + 门禁</h3>
+        <p><code>mg build --all</code> 三端产物、<code>mg check</code> 包体红线、游戏目录内 <code>pnpm test</code>。</p>
+      </div>
+    </div>
+    <div class="step">
+      <div class="step-num">4</div>
+      <div>
+        <h3>用运行时工具看画面</h3>
+        <p><code>screenshot</code> 截图、<code>checkRender</code> 断言绘制发生过、<code>diff</code> 对比改动前后的差异。测试绿 ≠ 画面对，这一步不能省。</p>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>gamekit · MIT License</span>
+    <span><a href="index.html">首页</a> · <a href="docs.html">文档</a> · <a href="play.html">在线试玩</a></span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
