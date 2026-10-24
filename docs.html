@@ -1,0 +1,167 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>文档 — gamekit</title>
+<meta name="description" content="gamekit 的 12 份文档索引：入门、界面语言、引擎 API、完整游戏流程、工程约定、物理、经济与存档、剧情、美术管线、性能基准。">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="logo-mark"></span>gamekit</a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="guide.html">上手指南</a>
+      <a href="docs.html">文档</a>
+      <a href="https://github.com/ahao0150/gamekit">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section style="border-top:0;padding-top:64px">
+    <span class="eyebrow">Docs</span>
+    <h1 style="font-size:clamp(30px,5vw,46px)">文档中心</h1>
+    <p class="lede">12 份文档随仓库走，克隆下来就能读。按你要做的事挑一篇——不用从头读到尾。</p>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>先做游戏</h2>
+    </div>
+    <div>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/START-HERE.md">
+        <span class="name">START-HERE.md</span>
+        <span class="desc">从零做一款游戏：建项目 → 写 <code>.ui</code> → 接布局/渲染 → 三端构建 → 验收。每个坑都有原始报错。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/GAME-WORKFLOW.md">
+        <span class="name">GAME-WORKFLOW.md</span>
+        <span class="desc">做一款完整能上线的游戏：PRD → 占位可玩 → 美术并行 → 手感 → 截图自评 → 包体 → 部署。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/GAME-PLANNER.md">
+        <span class="name">GAME-PLANNER.md</span>
+        <span class="desc">写代码前的策划流程。默认轻量 Concept → Top → PRD/ART-BRIEF，完整模式才跑 Architecture/Systems。</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>写界面与引擎 API</h2>
+    </div>
+    <div>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/ui-syntax.md">
+        <span class="name">ui-syntax.md</span>
+        <span class="desc"><code>.ui</code> 语法真源：<code>region</code> / <code>put</code> / <code>layer</code>、尺寸与对齐、命中语义、22 个通用组件的 props。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/ENGINE-API.md">
+        <span class="name">ENGINE-API.md</span>
+        <span class="desc">引擎 API 总表：布局与交互纯函数、绘制工具、<code>DrawDeps</code> / <code>MeasureEnv</code>、platform 契约。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/CONVENTIONS.md">
+        <span class="name">CONVENTIONS.md</span>
+        <span class="desc">工程约定：配置字段、产物结构、命令语义、包体红线。</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>子系统</h2>
+    </div>
+    <div>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/PHYSICS-GUIDE.md">
+        <span class="name">PHYSICS-GUIDE.md</span>
+        <span class="desc">2D 物理（planck 薄封装）：何时用、像素换算、验收清单。官方示例 <code>games/platformer</code>。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/ECONOMY-SAVE.md">
+        <span class="name">ECONOMY-SAVE.md</span>
+        <span class="desc">数值配表 TSV + 存档 + 离线收益（<code>@mg/economy</code>）。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/STORY.md">
+        <span class="name">STORY.md</span>
+        <span class="desc">扁平剧情 <code>.story.tsv</code> + lint / compile（<code>@mg/story</code>）。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/UI-PIPELINE.md">
+        <span class="name">UI-PIPELINE.md</span>
+        <span class="desc">美术到代码：风格板 → 整屏图 → tokens → 图层切割 → 补全 → 位图字体。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/docs/perf-bench.md">
+        <span class="name">perf-bench.md</span>
+        <span class="desc">Canvas 2D 性能基准：能画多少、什么时候必须上 WebGL。<code>games/bench</code> 可跑。</span>
+      </a>
+      <a class="doc-row" href="https://github.com/ahao0150/gamekit/blob/main/AGENTS.md">
+        <span class="name">AGENTS.md</span>
+        <span class="desc">改引擎代码的硬规则（给 AI 的判据）：七条铁律、平台扩展六步、提交前自检、禁止事项。</span>
+      </a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>四条核心设计</h2>
+      <p>读代码之前先知道这四条，否则会觉得「为什么这么绕」。</p>
+    </div>
+    <div class="grid grid-2">
+      <div class="card">
+        <h3>一层一职责</h3>
+        <p>契约（<code>contract.ts</code>）→ 实现 → 测试，三层分开。单文件 300 行是提醒线、500 行是警告线，确需更长要在文件头写 <code>// @long-file &lt;原因&gt;</code> 豁免。</p>
+      </div>
+      <div class="card">
+        <h3>数据 / 逻辑 / 渲染三分</h3>
+        <p>数据文件只放字面量；逻辑是纯函数（输入旧状态 → 输出新状态，不碰 canvas）；渲染只读状态、只画、不做判定。</p>
+      </div>
+      <div class="card">
+        <h3>平台差异只在 platform/</h3>
+        <p>新增一个平台 = 新建目录 + 实现 <code>PlatformAdapter</code> + 写 <code>probe()</code>，不碰 core、不碰契约必需成员。业务代码里出现 <code>wx.</code> / <code>tt.</code> 一律打回。</p>
+      </div>
+      <div class="card">
+        <h3>无全局可变状态</h3>
+        <p>状态挂在 <code>Game</code> 实例上，禁止模块级可变单例。注册表用工厂生产，每次新建一份，谁也污染不到谁。</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">
+      <h2>仓库结构</h2>
+      <p>packages 是框架，games 是游戏，templates 是脚手架。</p>
+    </div>
+    <div class="code-block">
+      <div class="code-head"><span>目录</span><button class="copy">复制</button></div>
+      <pre><code>packages/
+  runtime/       引擎内核：loop / stage / input / assets / audio / ads / save / ui / render / tween
+                 + 平台适配层（web / wechat / douyin / mock）
+  vite-plugin/   @mg/vite：三端产物、资源管线、图集打包、包体红线检查
+  ui-plugin/     @mg/ui-plugin：.ui 编译（dev 与 build 走同一个函数）
+  economy/       @mg/economy：配表校验、模拟、离线收益
+  story/         @mg/story：剧情扁平源 + lint / compile
+  physics-2d/    @mg/physics-2d：planck 薄封装（可选）
+  debug-mcp/     调试 MCP server：离线 5 个 ui.* 工具 + 运行时 10 个工具
+  cli/           mg 命令：create / dev / build / check / pack / doctor
+
+templates/
+  iaa-ui/        默认模板：.ui 界面链 + 31 个组件注册表
+  iaa-simple/    手写布局 demo：广告三件套 + 主菜单 + 存档 + 最小玩法
+
+games/           游戏工程只能放这里（mg create 强制）
+docs/            文档</code></pre>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>gamekit · MIT License</span>
+    <span><a href="index.html">首页</a> · <a href="guide.html">上手指南</a></span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>

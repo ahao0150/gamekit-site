@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>gamekit — 一套 TypeScript 源码，构建三端小游戏</title>
+<meta name="description" content="gamekit 是面向 AI 协作的 2D 小游戏工具链：一份 TypeScript 源码构建 web / 微信小游戏 / 抖音小游戏，声明式 .ui 界面语言、契约先行的引擎内核、真浏览器适配门禁。">
+<meta property="og:title" content="gamekit — 一套 TypeScript 源码，构建三端小游戏">
+<meta property="og:description" content="声明式 .ui 界面语言 · 契约先行 · 真浏览器适配门禁 · web / 微信 / 抖音三端">
+<meta property="og:type" content="website">
+<link rel="stylesheet" href="assets/style.css">
+</head>
+<body>
+
+<header class="nav">
+  <div class="nav-inner">
+    <a class="logo" href="index.html"><span class="logo-mark"></span>gamekit</a>
+    <nav class="nav-links">
+      <a href="index.html">首页</a>
+      <a href="guide.html">上手指南</a>
+      <a href="docs.html">文档</a>
+      <a href="https://github.com/ahao0150/gamekit">GitHub ↗</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" style="border-top:0">
+    <span class="eyebrow">v2 · 开发中 · MIT</span>
+    <h1>一套源码，<br><span class="grad">三端小游戏</span></h1>
+    <p class="lede">
+      gamekit 是面向 <strong>AI 协作</strong>的 2D 小游戏工具链。一份 TypeScript 源码构建
+      <strong>web / 微信小游戏 / 抖音小游戏</strong>；界面用声明式 <code>.ui</code> 语言描述，
+      平台差异只隔离在一层适配器里，构建自带真浏览器适配门禁。
+    </p>
+    <div class="badges">
+      <span class="badge">Node ≥ 22</span>
+      <span class="badge">TypeScript strict</span>
+      <span class="badge">Vite 8</span>
+      <span class="badge">Vitest</span>
+      <span class="badge">MIT</span>
+    </div>
+    <div class="actions">
+      <a class="btn btn-primary" href="#quickstart">快速开始</a>
+      <a class="btn btn-ghost" href="https://github.com/ahao0150/gamekit">查看仓库 ↗</a>
+    </div>
+  </section>
+
+  <section id="features">
+    <div class="section-head">
+      <h2>为什么这样设计</h2>
+      <p>三层职责分开：契约 → 实现 → 测试。读者主要是 AI，人只做验收。</p>
+    </div>
+    <div class="grid grid-3">
+      <div class="card">
+        <h3>一套源码，三端产物</h3>
+        <p>平台差异只隔离在 <code>packages/runtime/src/platform/</code> 一层。业务与 core 里不出现任何 <code>wx.</code> / <code>tt.</code> / <code>window.</code>。</p>
+      </div>
+      <div class="card">
+        <h3>声明式 .ui 界面语言</h3>
+        <p>布局是约束不是坐标：<code>region</code> 切带 + <code>size/cross/align</code> 定位。换屏型（390×844 ↔ 320×568）不用改任何数字。</p>
+      </div>
+      <div class="card">
+        <h3>契约先行</h3>
+        <p>每个能力都有 <code>.ts</code> interface + 契约测试。改契约必须同一次提交里改完所有实现和测试，禁止只改契约留实现报错。</p>
+      </div>
+      <div class="card">
+        <h3>真浏览器适配门禁</h3>
+        <p><code>pnpm verify-platform</code> 跑 dpr 五档 × 多视口 × build/dev，并自带反例自检——故意制造坏状态时门禁必须报红，防止自己变假阳性。</p>
+      </div>
+      <div class="card">
+        <h3>图集打包 + 包体红线</h3>
+        <p><code>mg check</code> 按 3 MB 发布线、4 MB 平台硬限校验。样张误入 <code>assets/</code> 会当场拦下——那是真的把小游戏顶爆过的坑。</p>
+      </div>
+      <div class="card">
+        <h3>为 AI 写代码设计</h3>
+        <p><code>AGENTS.md</code> 是给 AI 的硬规则，分主题文档齐全。新接手的 AI 不问人也能加出一个界面。</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="quickstart">
+    <div class="section-head">
+      <h2>快速开始</h2>
+      <p>需要 Node.js ≥ 22 与 pnpm。clone 下来即可跑，不需要先生成什么产物。</p>
+    </div>
+    <div class="grid grid-2">
+      <div>
+        <div class="code-block">
+          <div class="code-head"><span>安装与体检</span><button class="copy">复制</button></div>
+          <pre><code>git clone https://github.com/ahao0150/gamekit.git
+cd gamekit
+pnpm install
+
+pnpm doctor   # Node 版本 / pnpm / 依赖 / 契约文件 / 模板</code></pre>
+        </div>
+        <div class="code-block" style="margin-top:14px">
+          <div class="code-head"><span>跑一个示例</span><button class="copy">复制</button></div>
+          <pre><code>cd games/platformer
+pnpm dev                  # dev server，默认绑 127.0.0.1
+pnpm dev --host 0.0.0.0   # 监听全部网卡，手机同网可预览</code></pre>
+        </div>
+      </div>
+      <div>
+        <div class="code-block">
+          <div class="code-head"><span>构建三端产物</span><button class="copy">复制</button></div>
+          <pre><code>cd games/platformer
+pnpm build    # = mg build --all → build/{web,wx,tt}
+pnpm check    # 包体与配置校验</code></pre>
+        </div>
+        <div class="code-block" style="margin-top:14px">
+          <div class="code-head"><span>新建一款游戏</span><button class="copy">复制</button></div>
+          <pre><code>pnpm mg -- create my-game
+cd games/my-game
+pnpm dev</code></pre>
+        </div>
+      </div>
+    </div>
+    <div class="note">
+      <strong>游戏工程只能建在 <code>games/&lt;name&gt;/</code></strong> —— <code>mg create</code> 会拒绝仓库外路径，
+      三端构建与 workspace 协议都依赖这个前提。
+    </div>
+  </section>
+
+  <section id="examples">
+    <div class="section-head">
+      <h2>示例工程</h2>
+      <p>仓库里带 4 个可以直接跑起来的示例，覆盖物理、界面语言、完整玩法与性能基准。</p>
+    </div>
+    <div class="grid grid-4">
+      <a class="card card-link" href="https://github.com/ahao0150/gamekit/tree/main/games/platformer">
+        <h3>platformer</h3>
+        <p>2D 物理（planck）：static 地面 + dynamic 玩家 + <code>setVelocity</code> 跳跃。</p>
+      </a>
+      <a class="card card-link" href="https://github.com/ahao0150/gamekit/tree/main/games/ui-demo">
+        <h3>ui-demo</h3>
+        <p><code>.ui</code> 界面语言：region 切带、组件注册表、命中测试、浮层与嵌套滚动。</p>
+      </a>
+      <a class="card card-link" href="https://github.com/ahao0150/gamekit/tree/main/games/pindou-workshop">
+        <h3>pindou-workshop</h3>
+        <p>完整小游戏：12 关 + IAA 变现 + 存档 + 图集美术接入。</p>
+      </a>
+      <a class="card card-link" href="https://github.com/ahao0150/gamekit/tree/main/games/bench">
+        <h3>bench</h3>
+        <p>Canvas 2D 性能基准：draw 成本、掉帧点、离屏缓存收益。</p>
+      </a>
+    </div>
+  </section>
+
+  <section id="targets">
+    <div class="section-head">
+      <h2>三端产物</h2>
+      <p>同一份源码，三个目标。包体以 <code>games/platformer</code> 实测为参考。</p>
+    </div>
+    <table>
+      <thead>
+        <tr><th>目标</th><th>产物目录</th><th>产物形态</th><th>参考包体</th></tr>
+      </thead>
+      <tbody>
+        <tr><td><code>web</code></td><td><code>build/web/</code></td><td>单文件 IIFE + index.html</td><td>249.7 KB</td></tr>
+        <tr><td><code>wx</code></td><td><code>build/wx/</code></td><td>微信小游戏工程</td><td>248.1 KB</td></tr>
+        <tr><td><code>tt</code></td><td><code>build/tt/</code></td><td>抖音小游戏工程</td><td>248.2 KB</td></tr>
+      </tbody>
+    </table>
+    <div class="note">
+      新增一个平台 = <strong>新建一个目录</strong> + 实现 <code>PlatformAdapter</code> + 写 <code>probe()</code>，
+      不碰 core、不碰契约的必需成员。四个平台（web / wechat / douyin / mock）已经这样并存。
+    </div>
+  </section>
+
+  <section id="uisyntax">
+    <div class="section-head">
+      <h2>界面长这样</h2>
+      <p><code>.ui</code> 是给 AI 用的界面描述语言：扁平、无嵌套、可定位到行、可直接静态断言。</p>
+    </div>
+    <div class="code-block">
+      <div class="code-head"><span>games/*/ui/home.ui</span><button class="copy">复制</button></div>
+      <pre><code># 顶部信息带：高 48，横向排，间距 8，内边距 12，交叉轴居中
+region header top 48 row gap 8 pad 12 align center
+put coinBadge  size auto
+put statusText size fill
+put pause      size fixed 24 align end
+
+# 中间主体：吃掉剩余空间，纵向排，内边距 12
+region body fill column pad 12
+put parcelGrid size fill
+
+# 底部按钮带：高 72，纵向排，间距 8，内边距 12，交叉轴拉满
+region footer bottom 72 column gap 8 pad 12 align stretch
+put primaryButton   size fill cross fixed 56 style tone=primary label="开始配送"
+put secondaryButton size fill cross fixed 44 style tone=secondary</code></pre>
+    </div>
+    <p style="color:var(--muted);font-size:14.2px;margin-top:14px">
+      没有嵌套、没有括号、没有缩进语义：行序就是语义，<code>put</code> 归属它上面最近的那个 <code>region</code>。
+      写错组件名 <code>mg build</code> 直接报「未知组件 'xxx'，已注册的有：…」。
+    </p>
+  </section>
+
+  <section id="docs">
+    <div class="section-head">
+      <h2>文档</h2>
+      <p>12 份文档随仓库走，克隆下来就能读。按要做的事挑一篇。</p>
+    </div>
+    <div class="grid grid-3">
+      <a class="card card-link" href="guide.html">
+        <span class="tag">从这里开始</span>
+        <h3>上手指南</h3>
+        <p>从零到三端产物的完整路径：建项目 → 改配置 → 写 .ui → 接渲染 → 构建 → 验收。</p>
+      </a>
+      <a class="card card-link" href="docs.html">
+        <span class="tag">索引</span>
+        <h3>文档中心</h3>
+        <p>12 份文档的用途与入口，加上四条核心设计与目录结构。</p>
+      </a>
+      <a class="card card-link" href="https://github.com/ahao0150/gamekit/blob/main/AGENTS.md">
+        <span class="tag">给 AI</span>
+        <h3>AGENTS.md</h3>
+        <p>改引擎代码的硬规则：七条铁律、平台扩展步骤、提交前自检、禁止事项。</p>
+      </a>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap footer-inner">
+    <span>gamekit · MIT License · 面向 AI 协作的 2D 小游戏工具链</span>
+    <span>
+      <a href="https://github.com/ahao0150/gamekit">GitHub</a> ·
+      <a href="guide.html">上手指南</a> ·
+      <a href="docs.html">文档</a>
+    </span>
+  </div>
+</footer>
+
+<script src="assets/app.js"></script>
+</body>
+</html>
