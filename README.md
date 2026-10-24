@@ -21,7 +21,7 @@ assets/
 
 纯静态，**没有构建步骤**。改完直接推 `main`，Pages 自动更新（约 1 分钟）。
 
-**改 CSS 记得递增版本号**（`style.css?v=3`）：GitHub Pages 有约 10 分钟 CDN 缓存，
+**改 CSS 记得递增版本号**（当前 `style.css?v=4`）：GitHub Pages 有约 10 分钟 CDN 缓存，
 不升版本号会有人看到旧样式。
 
 ## 更新示例产物
