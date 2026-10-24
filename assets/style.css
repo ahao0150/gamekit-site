@@ -147,8 +147,8 @@ pre {
   font: 13.2px/1.75 var(--mono); color: #cbd6e2;
 }
 pre.plain { border-radius: var(--radius); }
-code { font-family: var(--mono); font-size: 0.92em; color: var(--accent); }
-pre code { color: inherit; font-size: inherit; }
+code { font-family: var(--mono); font-size: 0.92em; color: var(--accent); overflow-wrap: anywhere; }
+pre code { color: inherit; font-size: inherit; overflow-wrap: normal; }
 .copy {
   margin-left: auto; cursor: pointer;
   background: none; border: 1px solid var(--line-hi); color: var(--muted);
