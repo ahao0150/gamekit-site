@@ -30,6 +30,9 @@
     <span class="eyebrow">Playground</span>
     <h1 style="font-size:clamp(30px,5vw,46px)">在线试玩</h1>
     <p class="lede">这三个都是仓库里的真实示例，跑的就是 <code>pnpm build</code> 出来的同一份产物。</p>
+    <p style="margin-top:18px">
+      <a class="btn btn-primary" href="agent.html">让 Agent 照着这个仓做一款 →</a>
+    </p>
   </section>
 
   <section style="padding-top:0">
@@ -70,7 +73,7 @@
     <div class="section-head">
       <h2>说明</h2>
     </div>
-    <div class="grid grid-3">
+    <div class="grid grid-4">
       <div class="card">
         <h3>手机上直接全屏</h3>
         <p>窄屏下不套画框，点一下卡片就是整屏运行，配合游戏自己的 <code>viewport-fit=cover</code> 适配刘海屏。</p>
@@ -83,6 +86,10 @@
         <h3>产物与仓库同源</h3>
         <p>这些文件就是 <code>games/&lt;name&gt;/build/web/</code> 的内容，<code>mg build --all</code> 出什么这里就是什么。</p>
       </div>
+      <div class="card">
+        <h3>想改这个游戏？</h3>
+        <p>界面写成 <code>.ui</code>、逻辑是纯函数，agent 能直接接手。<a href="agent.html">Agent 工具</a>给了它流程、判据和读状态的通道。</p>
+      </div>
     </div>
     <div class="note">
       <code>games/bench</code> 是 Canvas 2D 性能基准，没有可玩内容，也没配 <code>build</code> 脚本 —— 在本地 <code>pnpm bench</code> 跑。
@@ -94,7 +101,7 @@
 <footer>
   <div class="wrap footer-inner">
     <span>gamekit · MIT License</span>
-    <span><a href="index.html">首页</a> · <a href="guide.html">上手指南</a> · <a href="docs.html">文档</a></span>
+    <span><a href="index.html">首页</a> · <a href="guide.html">上手指南</a> · <a href="docs.html">文档</a> · <a href="agent.html">Agent 工具</a></span>
   </div>
 </footer>
 
