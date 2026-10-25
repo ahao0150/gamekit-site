@@ -1,8 +1,9 @@
 # gamekit-site
 
-gamekit 的静态站点，托管在 GitHub Pages。
+gamekit 的静态站点。
 
-- **站点**：https://ahao0150.github.io/gamekit-site/
+- **主站**：https://gamekit.smxcx.top/ （自托管，nginx + Let's Encrypt，国内可直连）
+- **镜像**：https://ahao0150.github.io/gamekit-site/ （GitHub Pages，会 301 跳到主站）
 - **框架仓库**：[ahao0150/gamekit](https://github.com/ahao0150/gamekit)
 
 ## 结构
@@ -19,10 +20,29 @@ assets/
   app.js       复制按钮 + 导航高亮
 ```
 
-纯静态，**没有构建步骤**。改完直接推 `main`，Pages 自动更新（约 1 分钟）。
+纯静态，**没有构建步骤**。
 
-**改 CSS 记得递增版本号**（当前 `style.css?v=4`）：GitHub Pages 有约 10 分钟 CDN 缓存，
-不升版本号会有人看到旧样式。
+## 部署
+
+主站不跟 git 走，改完要手动同步到服务器（`ssh zhanghao_hql_test`）：
+
+```bash
+scp -r index.html play.html guide.html docs.html agent.html assets play \
+  root@101.96.218.165:/data/www/gamekit/
+ssh root@101.96.218.165 "chmod -R a+rX /data/www/gamekit"   # scp 会带出 700 权限，不修 nginx 读不了
+```
+
+推 `main` 只是更新 GitHub Pages 镜像（约 1 分钟），不影响主站。
+
+**改 CSS 记得递增版本号**（当前 `style.css?v=5`）：浏览器缓存 + nginx 对 `js|css|png|webp|json`
+设了 7 天长缓存（HTML 不缓存），不升版本号会有人看到旧样式。
+
+## 服务器侧配置
+
+- 站点目录 `/data/www/gamekit`，nginx 配置 `/etc/nginx/conf.d/gamekit.smxcx.top.conf`
+- 证书 `/etc/nginx/ssl/gamekit.smxcx.top.fullchain.crt`，acme.sh webroot `/data/www/acme`，
+  cron 已装（每日 3/9/15/21 点检查续期），与 `smxcx.top` 同一套机制
+- 80 口只留 ACME 校验 + 301 到 https
 
 ## 更新示例产物
 
